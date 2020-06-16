@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'moviesListRoute.dart';
+import 'package:hello_world/pages/moviesList/moviesListPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,13 +29,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "IMDB",
-      home: Scaffold(
-          body: Container(
+    return Scaffold(
+      body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
@@ -67,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MoviesListRoute()))
+                                      builder: (context) => MoviesListPage()))
                             },
                         child: Text("Start NOW!"),
                         color: Color.fromRGBO(245, 198, 24, 1),
@@ -83,8 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-      )),
+      ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+class MoviesListRoute {}
