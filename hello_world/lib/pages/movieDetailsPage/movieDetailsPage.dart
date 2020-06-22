@@ -6,6 +6,8 @@ import 'package:hello_world/models/movieModel.dart';
 import 'package:hello_world/pages/movieDetailsPage/movieDetailsBloc.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../dependencies.dart';
+
 class MovieDetailsPage extends StatefulWidget {
   MovieModel movieModel;
 
@@ -16,9 +18,8 @@ class MovieDetailsPage extends StatefulWidget {
 }
 
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
-  final _bloc = MovieDetailsBloc();
+  final _bloc = getMovieDetailsBloc();
   MovieModel movieModel;
-  WebViewController _controller;
 
   _MovieDetailsPageState(MovieModel _movieModel) {
     movieModel = _movieModel;

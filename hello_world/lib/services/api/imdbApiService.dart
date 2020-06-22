@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'package:chopper/chopper.dart';
 import 'package:hello_world/dataModels/expandedMovieData.dart';
 import 'package:hello_world/dataModels/movieVideoData.dart';
 import 'package:hello_world/dataModels/searchResult.dart';
@@ -8,10 +9,16 @@ import 'package:hello_world/models/movieModel.dart';
 import 'package:hello_world/models/movieVideoModel.dart';
 import 'package:http/http.dart' as http;
 
-class ImdbApiService {
+class ImdbApiService extends ChopperService {
   Map<String, String> generateApiHeaders() {
-    Map<String, String> headers = new HashMap();
 
+  String baseUrl = "https://imdb8.p.rapidapi.com";
+
+
+
+
+
+    Map<String, String> headers = new HashMap();
     headers.putIfAbsent("x-rapidapi-host", () => "imdb8.p.rapidapi.com");
     headers.putIfAbsent("x-rapidapi-key",
         () => "e66d6144d0msha88246537e1b47cp1527eajsn711906a0d9f0");
@@ -82,4 +89,7 @@ class ImdbApiService {
   {
     return MovieVideoModel(data.title, data.description, data.contentType, data.durationInSeconds, data.imageUrl);
   }
+
+  @override
+  Type get definitionType => throw UnimplementedError();
 }

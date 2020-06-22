@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/pages/movieDetailsPage/movieDetailsPage.dart';
 import 'package:hello_world/pages/moviesList/moviesListPage.dart';
+import 'package:hello_world/services/navigation/router.dart';
+import 'package:hello_world/services/navigation/routes.dart';
+
+import 'dependencies.dart';
 
 void main() {
+  setup();
   runApp(MyApp());
 }
 
@@ -9,6 +15,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: getNavigationService().navigatorKey,
+      onGenerateRoute: Router.generateRoute,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -61,10 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     FlatButton(
                         onPressed: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MoviesListPage()))
+                              getNavigationService().navigateTo(moviesListRoute, null)
                             },
                         child: Text("Start NOW!"),
                         color: Color.fromRGBO(245, 198, 24, 1),

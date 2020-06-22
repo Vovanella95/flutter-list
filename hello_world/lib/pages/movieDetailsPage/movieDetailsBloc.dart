@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/models/movieVideoModel.dart';
-import 'package:hello_world/pages/movieDetailsPage/movieDetailsPage.dart';
+import 'package:hello_world/services/api/imdbApiService.dart';
 
 import '../../dependencies.dart';
 
@@ -30,7 +30,9 @@ class MovieDetailsReceivedEvent extends MovieDetailsEvent {
   const MovieDetailsReceivedEvent(this.id);
 }
 
+//Bloc
 class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsPageState> {
+  ImdbApiService _api = getImdbApiService();
   @override
   MovieDetailsPageState get initialState => MovieDetailsLoadingState();
 
@@ -39,11 +41,13 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsPageState> {
       MovieDetailsEvent event) async* {
     if (event is MovieDetailsReceivedEvent) {
       yield MovieDetailsLoadingState();
-      final details = await imdbApiService.getMovieDetails(event.id);
 
-      final videos = await imdbApiService.getMovieVideos(event.id);
+      final details = await _api.getMovieDetails(event.id);
 
-      yield MovieDetailsLoadedState(details.author, details.description, videos);
+      final videos = await _api.getMovieVideos(event.id);
+
+      yield MovieDetailsLoadedState(
+          details.author, details.description, videos);
     }
   }
 }

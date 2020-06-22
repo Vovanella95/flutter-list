@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_world/pages/movieDetailsPage/movieDetailsPage.dart';
+import 'package:hello_world/services/navigation/routes.dart';
+import '../../dependencies.dart';
 import 'moviesListBloc.dart';
 
 class MoviesListPage extends StatefulWidget {
@@ -10,7 +11,7 @@ class MoviesListPage extends StatefulWidget {
 }
 
 class _MoviesListPageState extends State<MoviesListPage> {
-  final _bloc = MoviesListBloc();
+  final _bloc = getMoviesListBloc();
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -36,7 +37,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
         backgroundColor: Color.fromRGBO(28, 28, 28, 1),
         appBar: AppBar(
           title: !_bloc.isSearching
-              ? Text("Second Route 2")
+              ? Text(_bloc.query.isEmpty ? "Search anything..." : _bloc.query)
               : TextField(
                   controller: _searchController,
                   onEditingComplete: () {
@@ -51,7 +52,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                _bloc.add(new SearchStartedEvent());
+                _bloc.add(new SearchIconClicked());
               },
             )
           ],
@@ -65,8 +66,30 @@ class _MoviesListPageState extends State<MoviesListPage> {
   }
 
   Widget generateMoviesListView(String text) {
-    if (_bloc.state is BusyState) {
-      return Center(child: CircularProgressIndicator());
+    if (_bloc.state is EmptyState) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.search,
+              color: Color.fromRGBO(64, 64, 64, 1),
+              size: 48,
+            ),
+            Text(
+              "Search something",
+              style: TextStyle(
+                color: Color.fromRGBO(64, 64, 64, 1),
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else if (_bloc.state is BusyState) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     }
     return ListView.builder(
       itemCount: _bloc.items.length,
@@ -74,9 +97,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
         var item = _bloc.items[index];
         return InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return MovieDetailsPage(item);
-            }));
+            getNavigationService().navigateTo(movieDetailsRoute, item);
           },
           child: SizedBox(
             child: Container(

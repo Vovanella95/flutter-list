@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_world/api/imdbApiService.dart';
 import 'package:hello_world/models/movieModel.dart';
+
+import '../../dependencies.dart';
 
 // States
 abstract class SearchingState {
@@ -8,6 +9,8 @@ abstract class SearchingState {
 }
 
 class BusyState extends SearchingState {}
+
+class EmptyState extends SearchingState {}
 
 class InitialState extends SearchingState {}
 
@@ -22,45 +25,47 @@ class TextChangedEvent extends MoviesListEvents {
   const TextChangedEvent(this.query);
 }
 
-class SearchStartedEvent extends MoviesListEvents {}
+class SearchIconClicked extends MoviesListEvents {}
 
 class SearchCompletedEvent extends MoviesListEvents {}
 
 // Bloc
 class MoviesListBloc extends Bloc<MoviesListEvents, SearchingState> {
-  var _apiService = ImdbApiService();
+  final _api = getImdbApiService();
 
   bool isSearching = false;
-  String query;
+  String query = "";
   List<MovieModel> items = [];
 
   @override
-  SearchingState get initialState => InitialState();
+  SearchingState get initialState => EmptyState();
 
   @override
   Stream<SearchingState> mapEventToState(MoviesListEvents event) async* {
     if (event is TextChangedEvent) {
       yield* handleTextChanged(event.query);
-    }
-
-    if (event is SearchStartedEvent) {
-      yield* handleSearchStatred();
-    }
-
-    if (event is SearchCompletedEvent) {
+    } else if (event is SearchIconClicked) {
+      yield* handleSearchIconClicked();
+    } else if (event is SearchCompletedEvent) {
       yield* handleSearchCompleted();
     }
-  }
+  } // IoC + Navigation keys + cache + chopper
 
-  Stream<SearchingState> handleSearchStatred() async* {
-    isSearching = true;
-    yield BusyState();
+  Stream<SearchingState> handleSearchIconClicked() async* {
+    isSearching = !isSearching;
+
+    if (isSearching) {
+      query = "";
+      yield EmptyState();
+    } else {
+      yield* handleSearchCompleted();
+    }
   }
 
   Stream<SearchingState> handleSearchCompleted() async* {
     isSearching = false;
     yield BusyState();
-    items = await _apiService.searchMovie(query);
+    items = await _api.searchMovie(query);
     yield InitialState();
   }
 
