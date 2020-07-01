@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/models/movieModel.dart';
-
 import '../../dependencies.dart';
 
 // States

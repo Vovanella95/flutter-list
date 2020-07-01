@@ -3,6 +3,7 @@ import 'package:hello_world/pages/movieDetailsPage/movieDetailsBloc.dart';
 import 'package:hello_world/pages/moviesList/moviesListBloc.dart';
 import 'package:hello_world/services/api/imdbApiService.dart';
 import 'package:hello_world/services/navigation/navigationService.dart';
+import 'package:hello_world/services/providers/moviesService.dart';
 
 final getIt = GetIt.instance;
 
@@ -20,3 +21,4 @@ ImdbApiService getImdbApiService() => getIt.get<ImdbApiService>();
 MovieDetailsBloc getMovieDetailsBloc() => getIt.get<MovieDetailsBloc>();
 MoviesListBloc getMoviesListBloc() => getIt.get<MoviesListBloc>();
 NavigationService getNavigationService() => getIt.get<NavigationService>();
+MoviesService getMoviesService()=>getIt.get<MoviesService>();
