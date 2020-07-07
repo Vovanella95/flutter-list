@@ -63,6 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       rootBundle.loadString('assets/strings/welcomeText.txt'),
                   builder: (context, snapshot) => Text(
                     snapshot.data.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(height: 16),
