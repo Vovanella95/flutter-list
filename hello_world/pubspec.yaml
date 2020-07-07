@@ -30,6 +30,7 @@ dependencies:
   chopper: ^3.0.3
   provider: ^4.0.5
   http: ^0.12.1
+  
 
   cupertino_icons: ^0.1.3
 
@@ -42,3 +43,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+      - family: JosefinSans
+        fonts:
+          - asset: assets/JosefinSans-Regular.ttf
+  assets:
+    - assets/dark-low-poly-background_1048-7971.jpg
+    - assets/New-imdb-logo.png

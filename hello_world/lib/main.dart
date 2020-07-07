@@ -44,17 +44,14 @@ class _MyHomePageState extends State<MyHomePage> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                    "https://static.vecteezy.com/system/resources/previews/000/582/542/non_2x/vector-abstract-template-black-frame-layout-metallic-red-light-on-dark-background-modern-luxury-futuristic-technology-concept.jpg"))),
+                image: AssetImage('assets/dark-low-poly-background_1048-7971.jpg'))),
         child: Align(
           child: Container(
             margin: EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.network(
-                    "https://upload.wikimedia.org/wikipedia/commons/6/6a/New-imdb-logo.png",
-                    width: 160),
+                Image.asset('assets/New-imdb-logo.png', width: 120,),
                 SizedBox(height: 16),
                 Text(
                   "Welcome to IMDB Official site. Here you can find a lot of interesting things, Movies, Series and other kinds of entertament",

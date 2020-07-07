@@ -37,7 +37,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
         backgroundColor: Color.fromRGBO(28, 28, 28, 1),
         appBar: AppBar(
           title: !_bloc.isSearching
-              ? Text(_bloc.query.isEmpty ? "Search anything..." : _bloc.query)
+              ? Text(_bloc.query.isEmpty ? "Search anything..." : _bloc.query, style: TextStyle(fontFamily: 'JosefinSans'),)
               : TextField(
                   controller: _searchController,
                   onEditingComplete: () {
@@ -117,12 +117,13 @@ class _MoviesListPageState extends State<MoviesListPage> {
                     children: <Widget>[
                       Text(
                         item.title,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontFamily: 'JosefinSans'),
                         textAlign: TextAlign.left,
                       ),
                       Text(
                         item.titleType,
                         style: TextStyle(
+                          fontFamily: 'JosefinSans',
                           color: Color.fromRGBO(180, 180, 190, 1),
                         ),
                         textAlign: TextAlign.left,
