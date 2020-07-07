@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hello_world/pages/movieDetailsPage/movieDetailsPage.dart';
 import 'package:hello_world/pages/moviesList/moviesListPage.dart';
 import 'package:hello_world/services/navigation/router.dart';
@@ -44,19 +45,25 @@ class _MyHomePageState extends State<MyHomePage> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('assets/dark-low-poly-background_1048-7971.jpg'))),
+                image: AssetImage(
+                    'assets/dark-low-poly-background_1048-7971.jpg'))),
         child: Align(
           child: Container(
             margin: EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset('assets/New-imdb-logo.png', width: 120,),
+                Image.asset(
+                  'assets/New-imdb-logo.png',
+                  width: 120,
+                ),
                 SizedBox(height: 16),
-                Text(
-                  "Welcome to IMDB Official site. Here you can find a lot of interesting things, Movies, Series and other kinds of entertament",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                  textAlign: TextAlign.center,
+                FutureBuilder(
+                  future:
+                      rootBundle.loadString('assets/strings/welcomeText.txt'),
+                  builder: (context, snapshot) => Text(
+                    snapshot.data.toString(),
+                  ),
                 ),
                 SizedBox(height: 16),
                 Row(
@@ -66,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     FlatButton(
                         onPressed: () => {
-                              getNavigationService().navigateTo(moviesListRoute, null)
+                              getNavigationService()
+                                  .navigateTo(moviesListRoute, null)
                             },
                         child: Text("Start NOW!"),
                         color: Color.fromRGBO(245, 198, 24, 1),
