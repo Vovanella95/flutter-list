@@ -1,0 +1,21 @@
+{
+  "@@last_modified": "2020-07-08T14:27:43.779374",
+  "title": "ИМДБ Отечественный сервис",
+  "@title": {
+    "description": "Title for the Demo application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "description": "Лучший отечественный плагиат приложения с советскими фильмами",
+  "@description": {
+    "description": "Description on main page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Поиск...",
+    "type": "text",
+    "placeholders": {}
+  }
+}

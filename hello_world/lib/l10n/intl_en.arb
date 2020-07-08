@@ -1,0 +1,21 @@
+{
+  "@@last_modified": "2020-07-08T14:27:43.779374",
+  "title": "Hello World",
+  "@title": {
+    "description": "Title for the Demo application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "description": "Checkout for best imdb movies and series",
+  "@description": {
+    "description": "Description on main page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Text for searching movie",
+    "type": "text",
+    "placeholders": {}
+  }
+}

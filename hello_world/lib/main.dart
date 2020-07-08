@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hello_world/pages/movieDetailsPage/movieDetailsPage.dart';
-import 'package:hello_world/pages/moviesList/moviesListPage.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hello_world/locale/locales.dart';
+import 'package:hello_world/pages/startPage/startPage.dart';
 import 'package:hello_world/services/navigation/router.dart';
-import 'package:hello_world/services/navigation/routes.dart';
 
 import 'dependencies.dart';
 
@@ -23,79 +22,22 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: StartPage(title: 'Flutter Demo Home Page'),
+      localizationsDelegates: [
+        AppLocalizationDelegate(),
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('ru', ''),
+      ],
+      onGenerateTitle: (BuildContext context) =>
+          ImdbLocalizations.of(context).title,
+      localeResolutionCallback:
+          (Locale locale, Iterable<Locale> supportedLocales) {
+        return locale;
+      },
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                    'assets/dark-low-poly-background_1048-7971.jpg'))),
-        child: Align(
-          child: Container(
-            margin: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  'assets/New-imdb-logo.png',
-                  width: 120,
-                ),
-                SizedBox(height: 16),
-                FutureBuilder(
-                  future:
-                      rootBundle.loadString('assets/strings/welcomeText.txt'),
-                  builder: (context, snapshot) => Text(
-                    snapshot.data.toString(),
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    FlatButton(
-                        onPressed: () => {
-                              getNavigationService()
-                                  .navigateTo(moviesListRoute, null)
-                            },
-                        child: Text("Start NOW!"),
-                        color: Color.fromRGBO(245, 198, 24, 1),
-                        textColor: Colors.black),
-                    SizedBox(width: 16),
-                    FlatButton(
-                        onPressed: () => {},
-                        child: Text("Maybe later"),
-                        textColor: Color.fromRGBO(245, 198, 24, 1))
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class MoviesListRoute {}
