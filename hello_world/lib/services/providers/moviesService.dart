@@ -1,12 +1,23 @@
+import 'package:hello_world/dependencies.dart';
 import 'package:hello_world/models/movieModel.dart';
-import 'package:hello_world/services/api/moviesApiService/moviesApiService.dart';
+import 'package:hello_world/services/api/imdbApiService.dart';
+import 'package:hello_world/services/caching/database_provider.dart';
 
 class MoviesService {
-  MoviesApiService _api = MoviesApiService.create();
+  ImdbApiService _api = getImdbApiService();
+  DatabaseProvider _db = getDatabaseProvider();
 
   Future<List<MovieModel>> searchMovie(String query) async {
-    var result = await _api.searchMovie(query);
-    return result.body.results
-        .map((e) => MovieModel(e.imageUrl, e.title, e.year, e.titleType, e.id));
+    var results = await _api.searchMovie(query);
+
+    if (results.isEmpty) {
+      results = await _db.getMoviesAsync();
+    }
+
+    await _db.deleteAllMoviesAsync();
+
+    await _db.addMoviesAsync(results);
+
+    return results;
   }
 }

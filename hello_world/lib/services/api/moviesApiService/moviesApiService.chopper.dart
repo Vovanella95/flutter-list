@@ -33,7 +33,7 @@ class _$MoviesApiService extends MoviesApiService {
   @override
   Future<Response<SearchResponse>> getMovieDetails(
       String id, int limit, String region) {
-    final $url = 'https://imdb8.p.rapidapi.com/title/get-videos';
+    final $url = 'https://imdb8.p.rapidapi.com/title/get-overview-details';
     final $params = <String, dynamic>{
       'tconst': id,
       'limit': limit,

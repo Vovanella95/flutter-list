@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_world/dependencies.dart';
 import 'package:hello_world/locale/locales.dart';
+import 'package:hello_world/services/builtValue/code_runner.dart';
 import 'package:hello_world/services/navigation/routes.dart';
 
 class StartPage extends StatefulWidget {
@@ -64,7 +65,7 @@ class _StartPage extends State<StartPage> {
                         textColor: Colors.black),
                     SizedBox(width: 16),
                     FlatButton(
-                        onPressed: () => {},
+                        onPressed: () => {CodeRunner.compareTwoModels()},
                         child: Text("Maybe later"),
                         textColor: Color.fromRGBO(245, 198, 24, 1))
                   ],

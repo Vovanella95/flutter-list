@@ -30,7 +30,7 @@ class SearchCompletedEvent extends MoviesListEvents {}
 
 // Bloc
 class MoviesListBloc extends Bloc<MoviesListEvents, SearchingState> {
-  final _api = getImdbApiService();
+  final _api = getMoviesService();
 
   bool isSearching = false;
   String query = "";
