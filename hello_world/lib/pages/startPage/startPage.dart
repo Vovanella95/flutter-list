@@ -50,9 +50,10 @@ class _StartPage extends State<StartPage> {
                   ImdbLocalizations.of(context).description,
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                Row(
+                SizedBox(height: 16),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     FlatButton(
@@ -65,9 +66,29 @@ class _StartPage extends State<StartPage> {
                         textColor: Colors.black),
                     SizedBox(width: 16),
                     FlatButton(
-                        onPressed: () => {CodeRunner.compareTwoModels()},
-                        child: Text("Maybe later"),
-                        textColor: Color.fromRGBO(245, 198, 24, 1))
+                      onPressed: () => {
+                        getNavigationService()
+                            .navigateTo(implictAnimationsRoute, null)
+                      },
+                      child: Text("See implicity animations"),
+                      textColor: Color.fromRGBO(245, 198, 24, 1),
+                    ),
+                    FlatButton(
+                      onPressed: () => {
+                        getNavigationService()
+                            .navigateTo(explictNicokasCageAnimation, null)
+                      },
+                      child: Text("See Nicolas Cage"),
+                      textColor: Color.fromRGBO(245, 198, 24, 1),
+                    ),
+                    FlatButton(
+                      onPressed: () => {
+                        getNavigationService()
+                            .navigateTo(animationBuilderRoute, null)
+                      },
+                      child: Text("See Animation Builder"),
+                      textColor: Color.fromRGBO(245, 198, 24, 1),
+                    ),
                   ],
                 )
               ],
